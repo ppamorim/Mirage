@@ -26,7 +26,7 @@ public class MirageApp extends Application {
   @Override public void onCreate() {
     super.onCreate();
     CalligraphyConfig.initDefault(
-        new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Pacifico.ttf")
+        new CalligraphyConfig.Builder().setDefaultFontPath("fonts/MuseoSans_500.otf")
             .setFontAttrId(R.attr.fontPath)
             .build());
   }

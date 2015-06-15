@@ -26,7 +26,28 @@
       android:textColor="@android:color/white"
       android:text="@string/app_name"
       fontPath="fonts/Pacifico.ttf"
-      android:alpha="0.8"
+      android:alpha="0"
       />
 
+  <FrameLayout
+      android:id="@+id/signButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:background="?android:selectableItemBackground"
+      android:alpha="0"
+      android:clickable="true"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:text="@string/sign_button"
+        android:background="@drawable/rounded_corners_white_btn"
+        android:alpha="0.7"
+        />
+
+  </FrameLayout>
 </FrameLayout>

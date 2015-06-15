@@ -1,5 +1,8 @@
-package com.jorgecastilloprz.mirage;
+package com.jorgecastilloprz.mirage.ui;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -9,8 +12,12 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import butterknife.InjectView;
+import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.components.TextureVideoView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -18,9 +25,18 @@ public class SignUpActivity extends BaseActivity {
 
   @InjectView(R.id.textureView) TextureVideoView textureView;
   @InjectView(R.id.root) FrameLayout root;
+  @InjectView(R.id.signButton) FrameLayout signInButton;
+  @InjectView(R.id.logoText) View logo;
 
   private MediaPlayer mMediaPlayer;
   private View mDecorView;
+
+  private final int LOGO_FADE_IN_ANIM_DELAY = 1000;
+  private final int LOGO_FADE_IN_DURATION = 1000;
+  private final int SIGN_BUTTON_FADE_IN_DELAY = 1500;
+  private final int SIGN_IN_FADE_DURATION = 1000;
+  private final int LOGO_TRANSLATE_DELAY = 1700;
+  private final int FADE_OUT_SIGN_BUTTON_DURATION = 400;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -29,6 +45,10 @@ public class SignUpActivity extends BaseActivity {
     mDecorView = getWindow().getDecorView();
     setupGestureDetector();
     initBackgroundVideo();
+    postLogoFadeInAnim();
+    postSignInButtonFadeAnim();
+    postLogoTranslateAnim();
+    setSignInButtonListener();
   }
 
   @Override protected void attachBaseContext(Context newBase) {
@@ -82,6 +102,70 @@ public class SignUpActivity extends BaseActivity {
       @Override public void onVideoEnd() {
       }
     });
+  }
+
+  private void postLogoFadeInAnim() {
+    logo.postDelayed(new Runnable() {
+      @Override public void run() {
+        logo.animate().alpha(0.8f).setDuration(LOGO_FADE_IN_DURATION).start();
+      }
+    }, LOGO_FADE_IN_ANIM_DELAY);
+  }
+
+  private void postSignInButtonFadeAnim() {
+    signInButton.postDelayed(new Runnable() {
+      @Override public void run() {
+        playSignInAppearAnim();
+      }
+    }, SIGN_BUTTON_FADE_IN_DELAY);
+  }
+
+  private void playSignInAppearAnim() {
+    Interpolator decelerateInterpolator = new DecelerateInterpolator();
+
+    ValueAnimator fadeIn = ObjectAnimator.ofFloat(signInButton, "alpha", 1);
+    fadeIn.setInterpolator(decelerateInterpolator);
+
+    ValueAnimator translateY =
+        ObjectAnimator.ofFloat(signInButton, "translationY", signInButton.getHeight() * 4f,
+            signInButton.getHeight() * 3f);
+    translateY.setInterpolator(decelerateInterpolator);
+
+    AnimatorSet signInAnim = new AnimatorSet();
+    signInAnim.playTogether(fadeIn, translateY);
+    signInAnim.setDuration(SIGN_IN_FADE_DURATION);
+    signInAnim.start();
+  }
+
+  private void postLogoTranslateAnim() {
+    signInButton.postDelayed(new Runnable() {
+      @Override public void run() {
+        playLogoTranslateYAnim();
+      }
+    }, LOGO_TRANSLATE_DELAY);
+  }
+
+  private void playLogoTranslateYAnim() {
+    ValueAnimator translateY = ObjectAnimator.ofFloat(logo, "translationY", 0, -logo.getHeight());
+    translateY.setDuration(SIGN_IN_FADE_DURATION);
+    translateY.setInterpolator(new AccelerateDecelerateInterpolator());
+    translateY.start();
+  }
+
+  private void setSignInButtonListener() {
+    signInButton.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        playFadeOutAnim();
+      }
+    });
+  }
+
+  private void playFadeOutAnim() {
+    signInButton.animate()
+        .alpha(0)
+        .setDuration(FADE_OUT_SIGN_BUTTON_DURATION)
+        .setInterpolator(new DecelerateInterpolator())
+        .start();
   }
 
   @Override protected void onDestroy() {
