@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+repositories {
+  mavenCentral()
+}
+
 android {
 
   signingConfigs {
@@ -32,6 +36,8 @@ android {
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:appcompat-v7:22.2.0'
+  compile parent.ext.libAppCompat
+  compile parent.ext.libButterKnife
+  compile parent.ext.libCaligraphy
+//  compile 'com.malmstein:fenster:0.1-SNAPSHOT'
 }

@@ -1,14 +1,32 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
+    android:id="@+id/root"
     >
 
-  <TextView
-      android:text="@string/hello_world"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <com.jorgecastilloprz.mirage.components.TextureVideoView
+      android:id="@+id/textureView"
+      android:layout_height="match_parent"
+      android:layout_width="match_parent"
       />
 
-</RelativeLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@android:color/white"
+      android:alpha="0.1"
+      />
+
+  <TextView
+      android:id="@+id/logoText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:textSize="44sp"
+      android:textColor="@android:color/white"
+      android:text="@string/app_name"
+      fontPath="fonts/Pacifico.ttf"
+      android:alpha="0.8"
+      />
+
+</FrameLayout>
