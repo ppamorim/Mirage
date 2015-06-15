@@ -15,16 +15,23 @@
  */
 package com.jorgecastilloprz.mirage.components;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
+import com.jorgecastilloprz.mirage.R;
 
 /**
  * @author Jorge Castillo Pérez
  */
 public class SignInButtonBox extends FrameLayout {
+
+  private final int ANIM_TRANSLATE_DURATION = 1000;
 
   public SignInButtonBox(Context context) {
     super(context);
@@ -48,6 +55,17 @@ public class SignInButtonBox extends FrameLayout {
   }
 
   private void init() {
+    inflate(getContext(), R.layout.signin_box, this);
+  }
 
+  public void show() {
+    ValueAnimator fadeIn = ObjectAnimator.ofFloat(this, "alpha", 1);
+    ValueAnimator translateAnim = ObjectAnimator.ofFloat(this, "translationY", getHeight(), 0);
+
+    AnimatorSet set = new AnimatorSet();
+    set.playTogether(fadeIn, translateAnim);
+    set.setInterpolator(new AccelerateDecelerateInterpolator());
+    set.setDuration(ANIM_TRANSLATE_DURATION);
+    set.start();
   }
 }

@@ -36,8 +36,8 @@ android {
 }
 
 dependencies {
-  compile parent.ext.libAppCompat
-  compile parent.ext.libButterKnife
-  compile parent.ext.libCaligraphy
-//  compile 'com.malmstein:fenster:0.1-SNAPSHOT'
+  compile libAppCompat
+  compile libButterKnife
+  compile libCaligraphy
+  compile libGooglePlus
 }

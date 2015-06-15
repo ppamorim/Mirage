@@ -31,6 +31,7 @@ allprojects {
     libButterKnife = 'com.jakewharton:butterknife:6.1.0'
     libPicasso = 'com.squareup.picasso:picasso:2.5.2'
     libCaligraphy = 'uk.co.chrisjenx:calligraphy:2.1.0'
+    libGooglePlus = 'com.google.android.gms:play-services-plus:7.5.0'
   }
 
   repositories {

@@ -18,15 +18,17 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.R;
+import com.jorgecastilloprz.mirage.components.SignInButtonBox;
 import com.jorgecastilloprz.mirage.components.TextureVideoView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class SignUpActivity extends BaseActivity {
+public class MirageSignInActivity extends SignInActivity {
 
   @InjectView(R.id.textureView) TextureVideoView textureView;
   @InjectView(R.id.root) FrameLayout root;
   @InjectView(R.id.signButton) FrameLayout signInButton;
   @InjectView(R.id.logoText) View logo;
+  @InjectView(R.id.signInButtonBox) SignInButtonBox buttonBox;
 
   private MediaPlayer mMediaPlayer;
   private View mDecorView;
@@ -146,7 +148,7 @@ public class SignUpActivity extends BaseActivity {
   }
 
   private void playLogoTranslateYAnim() {
-    ValueAnimator translateY = ObjectAnimator.ofFloat(logo, "translationY", 0, -logo.getHeight());
+    ValueAnimator translateY = ObjectAnimator.ofFloat(logo, "translationY", 0, -logo.getHeight() / 1.5f);
     translateY.setDuration(SIGN_IN_FADE_DURATION);
     translateY.setInterpolator(new AccelerateDecelerateInterpolator());
     translateY.start();
@@ -156,6 +158,8 @@ public class SignUpActivity extends BaseActivity {
     signInButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         playFadeOutAnim();
+        buttonBox.show();
+        attachSocialListeners();
       }
     });
   }
@@ -166,6 +170,10 @@ public class SignUpActivity extends BaseActivity {
         .setDuration(FADE_OUT_SIGN_BUTTON_DURATION)
         .setInterpolator(new DecelerateInterpolator())
         .start();
+  }
+
+  private void attachSocialListeners() {
+    findViewById(R.id.sign_in_button).setOnClickListener(this);
   }
 
   @Override protected void onDestroy() {
