@@ -16,12 +16,19 @@
 package com.jorgecastilloprz.mirage.ui.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
+import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
+import com.jorgecastilloprz.mirage.ui.fragment.adapter.MainSectionPagerAdapter;
 
 /**
  * @author Jorge Castillo Pérez
@@ -29,16 +36,81 @@ import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 public class MainActivity extends SignInActivity {
 
   @InjectView(R.id.toolbar) Toolbar toolbar;
+  @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+  @InjectView(R.id.viewpager) ViewPager viewPager;
+  @InjectView(R.id.nav_view) NavigationView navigationView;
+  @InjectView(R.id.tabs) TabLayout tabLayout;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     injectViews();
+
+    setupActionBar();
+
+    navigationView = (NavigationView) findViewById(R.id.nav_view);
+    setupDrawerContent(navigationView);
+
+    setupViewPager(viewPager);
+    setupTabs();
+  }
+
+  private void setupActionBar() {
     setSupportActionBar(toolbar);
+    final ActionBar actionBar = getSupportActionBar();
+    if (actionBar != null) {
+      actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+      actionBar.setDisplayHomeAsUpEnabled(true);
+    }
   }
 
   @Override protected void onConnectionComplete() {
 
+  }
+
+  private void setupDrawerContent(NavigationView navigationView) {
+    navigationView.setNavigationItemSelectedListener(
+        new NavigationView.OnNavigationItemSelectedListener() {
+          @Override public boolean onNavigationItemSelected(MenuItem menuItem) {
+            menuItem.setChecked(true);
+            mDrawerLayout.closeDrawers();
+            return true;
+          }
+        });
+  }
+
+  private void setupViewPager(ViewPager viewPager) {
+    MainSectionPagerAdapter adapter = new MainSectionPagerAdapter(getSupportFragmentManager());
+    adapter.addFragment(new MockFragment(), "Place list");
+    adapter.addFragment(new MockFragment(), "");
+    adapter.addFragment(new MockFragment(), "Category 3");
+    viewPager.setAdapter(adapter);
+  }
+
+  private void setupTabs() {
+    tabLayout.setupWithViewPager(viewPager);
+    tabLayout.getTabAt(0).setIcon(R.drawable.ic_view_day_white_24dp);
+    tabLayout.getTabAt(0).setText("");
+    tabLayout.getTabAt(1).setIcon(R.drawable.ic_beenhere_white_24dp);
+    tabLayout.getTabAt(1).setText("");
+    tabLayout.getTabAt(1).getIcon().mutate().setAlpha(125);
+    tabLayout.getTabAt(2).setIcon(R.drawable.ic_pages_white_24dp);
+    tabLayout.getTabAt(2).setText("");
+    tabLayout.getTabAt(2).getIcon().mutate().setAlpha(125);
+
+    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override public void onTabSelected(TabLayout.Tab tab) {
+        tab.getIcon().mutate().setAlpha(255);
+      }
+
+      @Override public void onTabUnselected(TabLayout.Tab tab) {
+        tab.getIcon().mutate().setAlpha(125);
+      }
+
+      @Override public void onTabReselected(TabLayout.Tab tab) {
+
+      }
+    });
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,6 +123,12 @@ public class MainActivity extends SignInActivity {
     if (id == R.id.action_settings) {
       return true;
     }
+
+    if (id == R.id.action_signout) {
+      //presenter.onSignOutButtonClick();
+      return true;
+    }
+
     return super.onOptionsItemSelected(item);
   }
 }

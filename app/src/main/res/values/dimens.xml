@@ -5,4 +5,7 @@
   <dimen name="signbutton_dash_width">2dp</dimen>
   <dimen name="social_signin_button_width">250dp</dimen>
   <dimen name="social_signin_button_text_size">20sp</dimen>
+  <dimen name="pager_indicator_height">3dp</dimen>
+  <dimen name="card_margin">16dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
 </resources>

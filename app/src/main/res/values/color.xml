@@ -2,4 +2,5 @@
 <resources>
   <color name="primary">#f3b60c</color>
   <color name="primary_dark">#de9102</color>
+  <color name="pager_indicator">#EA9B08</color>
 </resources>
