@@ -22,7 +22,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import com.jorgecastilloprz.mirage.R;
 
@@ -31,7 +31,7 @@ import com.jorgecastilloprz.mirage.R;
  */
 public class SignInButtonBox extends FrameLayout {
 
-  private final int ANIM_TRANSLATE_DURATION = 1000;
+  private final int ANIM_TRANSLATE_DURATION = 1500;
 
   public SignInButtonBox(Context context) {
     super(context);
@@ -60,11 +60,12 @@ public class SignInButtonBox extends FrameLayout {
 
   public void show() {
     ValueAnimator fadeIn = ObjectAnimator.ofFloat(this, "alpha", 1);
-    ValueAnimator translateAnim = ObjectAnimator.ofFloat(this, "translationY", getHeight(), 0);
+    ValueAnimator translateAnim =
+        ObjectAnimator.ofFloat(this, "translationY", getY() + getHeight() / 2, getY());
 
     AnimatorSet set = new AnimatorSet();
     set.playTogether(fadeIn, translateAnim);
-    set.setInterpolator(new AccelerateDecelerateInterpolator());
+    set.setInterpolator(new DecelerateInterpolator());
     set.setDuration(ANIM_TRANSLATE_DURATION);
     set.start();
   }

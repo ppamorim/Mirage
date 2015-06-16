@@ -3,4 +3,6 @@
   <dimen name="activity_horizontal_margin">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
   <dimen name="signbutton_dash_width">2dp</dimen>
+  <dimen name="social_signin_button_width">250dp</dimen>
+  <dimen name="social_signin_button_text_size">20sp</dimen>
 </resources>

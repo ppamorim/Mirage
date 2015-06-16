@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.ui;
+package com.jorgecastilloprz.mirage.ui.base;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
@@ -29,12 +31,14 @@ import com.jorgecastilloprz.mirage.R;
 /**
  * @author Jorge Castillo Pérez
  */
-public class SignInActivity extends BaseActivity
+public abstract class SignInActivity extends BaseActivity
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     View.OnClickListener {
 
   private GoogleApiClient mGoogleApiClient;
-  private final int RC_SIGN_IN = 193;
+  private static final int RC_SIGN_IN = 0;
+
+  protected final String GOOGLE_PROVIDER = "Google";
 
   /**
    * True if the sign-in button was clicked.  When true, we know to resolve all
@@ -66,7 +70,22 @@ public class SignInActivity extends BaseActivity
   @Override public void onConnected(Bundle connectionHint) {
     mSignInClicked = false;
     Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
+    storeUserLogedInPreferences();
+    onConnectionComplete();
   }
+
+  private void storeUserLogedInPreferences() {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putBoolean("alreadyLogged", true);
+    editor.putString("loggedProvider", GOOGLE_PROVIDER);
+    editor.apply();
+  }
+
+  /**
+   * Extending activities will have this method to react for the connection event.
+   */
+  protected abstract void onConnectionComplete();
 
   @Override public void onConnectionSuspended(int i) {
 

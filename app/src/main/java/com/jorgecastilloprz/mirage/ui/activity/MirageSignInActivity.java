@@ -1,14 +1,18 @@
-package com.jorgecastilloprz.mirage.ui;
+package com.jorgecastilloprz.mirage.ui.activity;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +24,7 @@ import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.components.SignInButtonBox;
 import com.jorgecastilloprz.mirage.components.TextureVideoView;
+import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MirageSignInActivity extends SignInActivity {
@@ -33,15 +38,17 @@ public class MirageSignInActivity extends SignInActivity {
   private MediaPlayer mMediaPlayer;
   private View mDecorView;
 
-  private final int LOGO_FADE_IN_ANIM_DELAY = 1000;
+  private final int LOGO_FADE_IN_ANIM_DELAY = 1500;
   private final int LOGO_FADE_IN_DURATION = 1000;
-  private final int SIGN_BUTTON_FADE_IN_DELAY = 1500;
-  private final int SIGN_IN_FADE_DURATION = 1000;
-  private final int LOGO_TRANSLATE_DELAY = 1700;
+  private final int SIGN_BUTTON_FADE_IN_DELAY = 2000;
+  private final int SIGN_IN_FADE_DURATION = 1500;
+  private final int LOGO_TRANSLATE_DELAY = 2000;
   private final int FADE_OUT_SIGN_BUTTON_DURATION = 400;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    jumpToMainActivityIfLogged();
+
     setContentView(R.layout.activity_signup);
     injectViews();
     mDecorView = getWindow().getDecorView();
@@ -50,7 +57,23 @@ public class MirageSignInActivity extends SignInActivity {
     postLogoFadeInAnim();
     postSignInButtonFadeAnim();
     postLogoTranslateAnim();
-    setSignInButtonListener();
+  }
+
+  @Override protected void onConnectionComplete() {
+    jumpToMainActivity();
+  }
+
+  private void jumpToMainActivityIfLogged() {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    if (prefs.getBoolean("alreadyLogged", false)) {
+      jumpToMainActivity();
+    }
+  }
+
+  private void jumpToMainActivity() {
+    Intent mainActivityIntent = new Intent(this, MainActivity.class);
+    startActivity(mainActivityIntent);
+    finish();
   }
 
   @Override protected void attachBaseContext(Context newBase) {
@@ -136,6 +159,20 @@ public class MirageSignInActivity extends SignInActivity {
     AnimatorSet signInAnim = new AnimatorSet();
     signInAnim.playTogether(fadeIn, translateY);
     signInAnim.setDuration(SIGN_IN_FADE_DURATION);
+    signInAnim.addListener(new Animator.AnimatorListener() {
+      @Override public void onAnimationStart(Animator animator) {
+      }
+
+      @Override public void onAnimationEnd(Animator animator) {
+        setSignInButtonListener();
+      }
+
+      @Override public void onAnimationCancel(Animator animator) {
+      }
+
+      @Override public void onAnimationRepeat(Animator animator) {
+      }
+    });
     signInAnim.start();
   }
 
@@ -148,7 +185,8 @@ public class MirageSignInActivity extends SignInActivity {
   }
 
   private void playLogoTranslateYAnim() {
-    ValueAnimator translateY = ObjectAnimator.ofFloat(logo, "translationY", 0, -logo.getHeight() / 1.5f);
+    ValueAnimator translateY =
+        ObjectAnimator.ofFloat(logo, "translationY", 0, -logo.getHeight() / 1.5f);
     translateY.setDuration(SIGN_IN_FADE_DURATION);
     translateY.setInterpolator(new AccelerateDecelerateInterpolator());
     translateY.start();
@@ -158,7 +196,6 @@ public class MirageSignInActivity extends SignInActivity {
     signInButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         playFadeOutAnim();
-        buttonBox.show();
         attachSocialListeners();
       }
     });
@@ -169,6 +206,24 @@ public class MirageSignInActivity extends SignInActivity {
         .alpha(0)
         .setDuration(FADE_OUT_SIGN_BUTTON_DURATION)
         .setInterpolator(new DecelerateInterpolator())
+        .setListener(new Animator.AnimatorListener() {
+          @Override public void onAnimationStart(Animator animator) {
+            signInButton.setClickable(false);
+          }
+
+          @Override public void onAnimationEnd(Animator animator) {
+            buttonBox.setY(signInButton.getY());
+            buttonBox.show();
+          }
+
+          @Override public void onAnimationCancel(Animator animator) {
+
+          }
+
+          @Override public void onAnimationRepeat(Animator animator) {
+
+          }
+        })
         .start();
   }
 

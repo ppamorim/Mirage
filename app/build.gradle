@@ -37,6 +37,7 @@ android {
 
 dependencies {
   compile libAppCompat
+  compile libSupportDesign
   compile libButterKnife
   compile libCaligraphy
   compile libGooglePlus
