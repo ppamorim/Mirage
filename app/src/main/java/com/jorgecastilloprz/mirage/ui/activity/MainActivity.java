@@ -169,17 +169,17 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    case android.R.id.home:
-    mDrawerLayout.openDrawer(GravityCompat.START);
-    return true;
-    int id = item.getItemId();
-    if (id == R.id.action_settings) {
-      return true;
-    }
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        mDrawerLayout.openDrawer(GravityCompat.START);
+        return true;
 
-    if (id == R.id.action_signout) {
-      presenter.onSignOutButtonClick();
-      return true;
+      case R.id.action_settings:
+        return true;
+
+      case R.id.action_signout:
+        presenter.onSignOutButtonClick();
+        return true;
     }
 
     return super.onOptionsItemSelected(item);
