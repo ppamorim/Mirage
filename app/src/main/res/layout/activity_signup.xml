@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/root"
@@ -26,6 +27,7 @@
       android:textColor="@android:color/white"
       android:text="@string/app_name"
       fontPath="fonts/Pacifico.ttf"
+      tools:ignore="MissingPrefix"
       android:alpha="0"
       />
 

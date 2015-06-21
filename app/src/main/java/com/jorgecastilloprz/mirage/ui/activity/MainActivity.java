@@ -86,6 +86,7 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
     setSupportActionBar(toolbar);
     final ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
+      actionBar.setDisplayShowTitleEnabled(false);
       actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
       actionBar.setDisplayHomeAsUpEnabled(true);
     }

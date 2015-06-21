@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -29,7 +28,6 @@ import com.jorgecastilloprz.mirage.di.component.DaggerMirageSignInActivityCompon
 import com.jorgecastilloprz.mirage.di.component.MirageSignInActivityComponent;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MirageSignInActivity extends SignInActivity {
 
@@ -96,10 +94,6 @@ public class MirageSignInActivity extends SignInActivity {
     Intent mainActivityIntent = new Intent(this, MainActivity.class);
     startActivity(mainActivityIntent);
     finish();
-  }
-
-  @Override protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 
   @Override public void onWindowFocusChanged(boolean hasFocus) {

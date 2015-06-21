@@ -15,12 +15,14 @@
  */
 package com.jorgecastilloprz.mirage.ui.base;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * BaseActivity will be extended by every activity in the app, and it hides
- * common logic for concrete activities, like initial view injections
+ * BaseActivity will be extended by every activity in the app, and it hides common logic for
+ * concrete activities, like initial view injections or calligraphy activity context attach.
  *
  * Created by jorge on 10/01/15.
  */
@@ -28,5 +30,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   protected void injectViews() {
     ButterKnife.inject(this);
+  }
+
+  @Override protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 }
