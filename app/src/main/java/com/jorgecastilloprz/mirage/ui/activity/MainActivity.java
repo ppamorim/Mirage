@@ -15,6 +15,7 @@
  */
 package com.jorgecastilloprz.mirage.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -25,15 +26,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import butterknife.InjectView;
+import com.jorgecastilloprz.mirage.MainPresenter;
+import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.R;
+import com.jorgecastilloprz.mirage.di.component.DaggerMainActivityComponent;
+import com.jorgecastilloprz.mirage.di.component.MainActivityComponent;
+import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.adapter.MainSectionPagerAdapter;
+import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class MainActivity extends SignInActivity {
+public class MainActivity extends SignInActivity implements MainPresenter.View {
 
   @InjectView(R.id.toolbar) Toolbar toolbar;
   @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -41,10 +48,24 @@ public class MainActivity extends SignInActivity {
   @InjectView(R.id.nav_view) NavigationView navigationView;
   @InjectView(R.id.tabs) TabLayout tabLayout;
 
+  @Inject MainPresenter presenter;
+
+  private MainActivityComponent component;
+
+  public MainActivityComponent component() {
+    if (component == null) {
+      component = DaggerMainActivityComponent.builder()
+          .applicationComponent(((MirageApp) getApplication()).component())
+          .activityModule(new ActivityModule(this))
+          .build();
+    }
+    return component;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    injectViews();
+    injectStuff();
 
     setupActionBar();
 
@@ -53,6 +74,12 @@ public class MainActivity extends SignInActivity {
 
     setupViewPager(viewPager);
     setupTabs();
+    initPresenter();
+  }
+
+  private void injectStuff() {
+    injectViews();
+    component().inject(this);
   }
 
   private void setupActionBar() {
@@ -113,6 +140,27 @@ public class MainActivity extends SignInActivity {
     });
   }
 
+  private void initPresenter() {
+    presenter.setView(this);
+    presenter.initialize();
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    presenter.onResume();
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    presenter.onPause();
+  }
+
+  @Override public void exitToSignInActivity() {
+    Intent signUpIntent = new Intent(this, MirageSignInActivity.class);
+    startActivity(signUpIntent);
+    finish();
+  }
+
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_main, menu);
     return true;
@@ -125,7 +173,7 @@ public class MainActivity extends SignInActivity {
     }
 
     if (id == R.id.action_signout) {
-      //presenter.onSignOutButtonClick();
+      presenter.onSignOutButtonClick();
       return true;
     }
 

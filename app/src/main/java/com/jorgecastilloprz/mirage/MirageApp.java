@@ -16,18 +16,40 @@
 package com.jorgecastilloprz.mirage;
 
 import android.app.Application;
+import com.jorgecastilloprz.mirage.di.component.ApplicationComponent;
+import com.jorgecastilloprz.mirage.di.component.DaggerApplicationComponent;
+import com.jorgecastilloprz.mirage.di.modules.ApplicationModule;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
+ * This is the Mirage application class, and handles app component and app typography
+ * initialization.
+ *
  * @author Jorge Castillo Pérez
  */
 public class MirageApp extends Application {
 
+  private ApplicationComponent applicationComponent;
+
   @Override public void onCreate() {
     super.onCreate();
+    initTypography();
+    setupAppComponent();
+  }
+
+  private void initTypography() {
     CalligraphyConfig.initDefault(
         new CalligraphyConfig.Builder().setDefaultFontPath("fonts/MuseoSans_500.otf")
             .setFontAttrId(R.attr.fontPath)
             .build());
+  }
+
+  private void setupAppComponent() {
+    applicationComponent =
+        DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+  }
+
+  public ApplicationComponent component() {
+    return applicationComponent;
   }
 }

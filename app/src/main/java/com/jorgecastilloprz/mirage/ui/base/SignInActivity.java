@@ -24,9 +24,9 @@ import android.view.View;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.plus.Plus;
 import com.jorgecastilloprz.mirage.R;
+import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
@@ -35,10 +35,10 @@ public abstract class SignInActivity extends BaseActivity
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     View.OnClickListener {
 
-  private GoogleApiClient mGoogleApiClient;
   private static final int RC_SIGN_IN = 0;
-
   protected final String GOOGLE_PROVIDER = "Google";
+
+  @Inject GoogleApiClient mGoogleApiClient;
 
   /**
    * True if the sign-in button was clicked.  When true, we know to resolve all
@@ -50,15 +50,6 @@ public abstract class SignInActivity extends BaseActivity
    * True if we are in the process of resolving a ConnectionResult
    */
   private boolean mIntentInProgress;
-
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
-        .addOnConnectionFailedListener(this)
-        .addApi(Plus.API)
-        .addScope(new Scope("profile"))
-        .build();
-  }
 
   @Override public void onClick(View view) {
     if (view.getId() == R.id.sign_in_button && !mGoogleApiClient.isConnecting()) {
@@ -79,6 +70,14 @@ public abstract class SignInActivity extends BaseActivity
     SharedPreferences.Editor editor = prefs.edit();
     editor.putBoolean("alreadyLogged", true);
     editor.putString("loggedProvider", GOOGLE_PROVIDER);
+    editor.apply();
+  }
+
+  public void storeUserLogedOutInPreferences() {
+    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = prefs.edit();
+    editor.putBoolean("alreadyLogged", false);
+    editor.remove("loggedProvider");
     editor.apply();
   }
 
@@ -120,6 +119,13 @@ public abstract class SignInActivity extends BaseActivity
       if (!mGoogleApiClient.isConnected()) {
         mGoogleApiClient.reconnect();
       }
+    }
+  }
+
+  public void signOutAccount() {
+    if (mGoogleApiClient.isConnected()) {
+      Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+      mGoogleApiClient.disconnect();
     }
   }
 }

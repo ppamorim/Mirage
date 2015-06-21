@@ -4,6 +4,7 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
   }
 }
 
@@ -32,6 +33,9 @@ allprojects {
     libPicasso = 'com.squareup.picasso:picasso:2.5.2'
     libCaligraphy = 'uk.co.chrisjenx:calligraphy:2.1.0'
     libGooglePlus = 'com.google.android.gms:play-services-plus:7.5.0'
+    libDaggerCompiler = 'com.google.dagger:dagger-compiler:2.0.1'
+    libDagger = 'com.google.dagger:dagger:2.0.1'
+    libAnnotations = 'org.glassfish:javax.annotation:10.0-b28'
   }
 
   repositories {

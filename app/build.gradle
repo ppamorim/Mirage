@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 repositories {
   mavenCentral()
@@ -33,12 +34,20 @@ android {
       signingConfig signingConfigs.release
     }
   }
+
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
 }
 
 dependencies {
+  compile project(':presentation')
   compile libAppCompat
   compile libSupportDesign
   compile libButterKnife
   compile libCaligraphy
   compile libGooglePlus
+  apt libDaggerCompiler
+  compile libDagger
+  compile libAnnotations
 }

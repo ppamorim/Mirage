@@ -21,9 +21,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import butterknife.InjectView;
+import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.components.SignInButtonBox;
 import com.jorgecastilloprz.mirage.components.TextureVideoView;
+import com.jorgecastilloprz.mirage.di.component.DaggerMirageSignInActivityComponent;
+import com.jorgecastilloprz.mirage.di.component.MirageSignInActivityComponent;
+import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -45,18 +49,36 @@ public class MirageSignInActivity extends SignInActivity {
   private final int LOGO_TRANSLATE_DELAY = 2000;
   private final int FADE_OUT_SIGN_BUTTON_DURATION = 400;
 
+  private MirageSignInActivityComponent component;
+
+  public MirageSignInActivityComponent component() {
+    if (component == null) {
+      component = DaggerMirageSignInActivityComponent.builder()
+          .applicationComponent(((MirageApp) getApplication()).component())
+          .activityModule(new ActivityModule(this))
+          .build();
+    }
+    return component;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     jumpToMainActivityIfLogged();
 
     setContentView(R.layout.activity_signup);
-    injectViews();
+    injectStuff();
+
     mDecorView = getWindow().getDecorView();
     setupGestureDetector();
     initBackgroundVideo();
     postLogoFadeInAnim();
     postSignInButtonFadeAnim();
     postLogoTranslateAnim();
+  }
+
+  private void injectStuff() {
+    injectViews();
+    component().inject(this);
   }
 
   @Override protected void onConnectionComplete() {
