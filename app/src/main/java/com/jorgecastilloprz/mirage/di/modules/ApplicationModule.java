@@ -16,6 +16,10 @@
 package com.jorgecastilloprz.mirage.di.modules;
 
 import android.app.Application;
+import com.jorgecastilloprz.mirage.domain.MainThreadImpl;
+import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
+import com.jorgecastilloprz.mirage.executor.MainThread;
+import com.jorgecastilloprz.mirage.executor.ThreadExecutor;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -35,5 +39,13 @@ import javax.inject.Singleton;
    */
   @Provides @Singleton Application application() {
     return application;
+  }
+
+  @Provides @Singleton InteractorExecutor provideThreadExecutor(ThreadExecutor executor) {
+    return executor;
+  }
+
+  @Provides @Singleton MainThread providePostExecutionThread(MainThreadImpl mainThread) {
+    return mainThread;
   }
 }

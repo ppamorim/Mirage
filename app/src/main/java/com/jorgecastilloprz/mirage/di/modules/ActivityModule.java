@@ -18,6 +18,7 @@ package com.jorgecastilloprz.mirage.di.modules;
 import android.app.Activity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.plus.Plus;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
@@ -46,6 +47,8 @@ import dagger.Provides;
         .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) activity)
         .addApi(Plus.API)
         .addScope(new Scope("profile"))
+        .addApi(Places.GEO_DATA_API)
+        .addApi(Places.PLACE_DETECTION_API)
         .build();
   }
 }

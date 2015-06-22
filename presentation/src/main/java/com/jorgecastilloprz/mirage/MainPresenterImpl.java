@@ -15,16 +15,20 @@
  */
 package com.jorgecastilloprz.mirage;
 
+import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
 import javax.inject.Inject;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public class MainPresenterImpl implements MainPresenter {
+public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callback {
 
   private View view;
 
-  @Inject MainPresenterImpl() {
+  private GetPlacesAround getPlacesAround;
+
+  @Inject MainPresenterImpl(GetPlacesAround getPlacesAround) {
+    this.getPlacesAround = getPlacesAround;
   }
 
   @Override public void setView(View view) {
@@ -36,7 +40,7 @@ public class MainPresenterImpl implements MainPresenter {
   }
 
   @Override public void initialize() {
-
+    getPlacesAround.execute(this);
   }
 
   @Override public void onResume() {
@@ -51,5 +55,13 @@ public class MainPresenterImpl implements MainPresenter {
     view.signOutAccount();
     view.storeUserLogedOutInPreferences();
     view.exitToSignInActivity();
+  }
+
+  @Override public void onPlacesLoaded() {
+
+  }
+
+  @Override public void onLoadingPlacesError() {
+
   }
 }

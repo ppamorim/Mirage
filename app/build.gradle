@@ -42,11 +42,13 @@ android {
 
 dependencies {
   compile project(':presentation')
+  compile project(':domain')
   compile libAppCompat
   compile libSupportDesign
   compile libButterKnife
   compile libCaligraphy
   compile libGooglePlus
+  compile libLocation
   apt libDaggerCompiler
   compile libDagger
   compile libAnnotations

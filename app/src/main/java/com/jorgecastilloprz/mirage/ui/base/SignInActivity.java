@@ -38,7 +38,7 @@ public abstract class SignInActivity extends BaseActivity
   private static final int RC_SIGN_IN = 0;
   protected final String GOOGLE_PROVIDER = "Google";
 
-  @Inject GoogleApiClient mGoogleApiClient;
+  @Inject protected GoogleApiClient mGoogleApiClient;
 
   /**
    * True if the sign-in button was clicked.  When true, we know to resolve all

@@ -18,6 +18,8 @@ package com.jorgecastilloprz.mirage.di.component;
 import android.app.Application;
 import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.di.modules.ApplicationModule;
+import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
+import com.jorgecastilloprz.mirage.executor.MainThread;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -33,4 +35,8 @@ import javax.inject.Singleton;
 
   // Exported for child-components.
   Application application();
+
+  InteractorExecutor threadExecutor();
+
+  MainThread mainThread();
 }

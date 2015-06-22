@@ -147,6 +147,16 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
     presenter.initialize();
   }
 
+  @Override protected void onStart() {
+    super.onStart();
+    mGoogleApiClient.connect();
+  }
+
+  @Override protected void onStop() {
+    mGoogleApiClient.disconnect();
+    super.onStop();
+  }
+
   @Override protected void onResume() {
     super.onResume();
     presenter.onResume();
