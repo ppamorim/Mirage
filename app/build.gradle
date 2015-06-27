@@ -43,6 +43,8 @@ android {
 dependencies {
   compile project(':presentation')
   compile project(':domain')
+  compile project(':repository')
+  compile project(':datasource')
   compile libAppCompat
   compile libSupportDesign
   compile libButterKnife
@@ -52,4 +54,5 @@ dependencies {
   apt libDaggerCompiler
   compile libDagger
   compile libAnnotations
+  compile libRetrofit
 }

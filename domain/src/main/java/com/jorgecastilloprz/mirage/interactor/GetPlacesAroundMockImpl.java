@@ -17,6 +17,10 @@ package com.jorgecastilloprz.mirage.interactor;
 
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
+import com.jorgecastilloprz.mirage.interactor.exceptions.ObtainPlacesException;
+import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.repository.PlacesRepository;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -26,20 +30,32 @@ public class GetPlacesAroundMockImpl implements GetPlacesAround {
 
   private InteractorExecutor executor;
   private MainThread mainThread;
+  private PlacesRepository repository;
+  private double lat;
+  private double lng;
   private Callback callback;
 
-  @Inject GetPlacesAroundMockImpl(InteractorExecutor executor, MainThread mainThread) {
+  @Inject GetPlacesAroundMockImpl(InteractorExecutor executor, MainThread mainThread,
+      PlacesRepository repository) {
     this.executor = executor;
     this.mainThread = mainThread;
+    this.repository = repository;
   }
 
-  @Override public void execute(Callback callback) {
+  @Override public void execute(Callback callback, double lat, double lng) {
     this.callback = callback;
+    this.lat = lat;
+    this.lng = lng;
     this.executor.run(this);
   }
 
   @Override public void run() {
-
+    try {
+      List<Place> placesAround = repository.obtainPlacesAround(lat, lng, 200, 100000);
+      notifyGamesLoaded(placesAround);
+    } catch (ObtainPlacesException e) {
+      notifyLoadingGamesError();
+    }
   }
 
   private void notifyLoadingGamesError() {
@@ -50,10 +66,10 @@ public class GetPlacesAroundMockImpl implements GetPlacesAround {
     });
   }
 
-  private void notifyGamesLoaded() {
+  private void notifyGamesLoaded(final List<Place> places) {
     mainThread.post(new Runnable() {
       @Override public void run() {
-        callback.onPlacesLoaded();
+        callback.onPlacesLoaded(places);
       }
     });
   }

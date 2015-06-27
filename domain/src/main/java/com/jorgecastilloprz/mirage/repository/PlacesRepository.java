@@ -15,8 +15,15 @@
  */
 package com.jorgecastilloprz.mirage.repository;
 
+import com.jorgecastilloprz.mirage.interactor.exceptions.ObtainPlacesException;
+import com.jorgecastilloprz.mirage.model.Place;
+import java.util.List;
+
 /**
  * @author Jorge Castillo Pérez
  */
 public interface PlacesRepository {
+
+  List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
+      throws ObtainPlacesException;
 }

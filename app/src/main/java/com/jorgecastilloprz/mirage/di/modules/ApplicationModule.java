@@ -20,6 +20,8 @@ import com.jorgecastilloprz.mirage.domain.MainThreadImpl;
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
 import com.jorgecastilloprz.mirage.executor.ThreadExecutor;
+import com.jorgecastilloprz.mirage.log.Logger;
+import com.jorgecastilloprz.mirage.log.LoggerImpl;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -47,5 +49,9 @@ import javax.inject.Singleton;
 
   @Provides @Singleton MainThread providePostExecutionThread(MainThreadImpl mainThread) {
     return mainThread;
+  }
+
+  @Provides Logger provideLogger(LoggerImpl logger) {
+    return logger;
   }
 }

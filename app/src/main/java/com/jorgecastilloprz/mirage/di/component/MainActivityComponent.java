@@ -15,12 +15,17 @@
  */
 package com.jorgecastilloprz.mirage.di.component;
 
+import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
 import com.jorgecastilloprz.mirage.MainPresenter;
+import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
+import com.jorgecastilloprz.mirage.di.modules.ApiModule;
 import com.jorgecastilloprz.mirage.di.modules.InteractorModule;
 import com.jorgecastilloprz.mirage.di.modules.PresentationModule;
+import com.jorgecastilloprz.mirage.di.modules.RepositoryModule;
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
+import com.jorgecastilloprz.mirage.repository.PlacesRepository;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
 import dagger.Component;
@@ -29,7 +34,8 @@ import dagger.Component;
  * @author Jorge Castillo Pérez
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class, modules = {
-    ActivityModule.class, PresentationModule.class, InteractorModule.class
+    ActivityModule.class, PresentationModule.class, InteractorModule.class, RepositoryModule.class,
+    ApiModule.class
 }) public interface MainActivityComponent extends AbstractActivityComponent {
 
   void inject(MainActivity mainActivity);
@@ -39,4 +45,10 @@ import dagger.Component;
   MainPresenter mainPresenter();
 
   GetPlacesAround getPlacesAround();
+
+  PlacesRepository placesRepository();
+
+  PlacesNetworkDataSource placesNetworkDataSource();
+
+  FoursquareRetrofitService foursquareRetrofitService();
 }

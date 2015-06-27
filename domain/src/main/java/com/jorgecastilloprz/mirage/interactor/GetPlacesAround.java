@@ -16,17 +16,19 @@
 package com.jorgecastilloprz.mirage.interactor;
 
 import com.jorgecastilloprz.mirage.executor.Interactor;
+import com.jorgecastilloprz.mirage.model.Place;
+import java.util.List;
 
 /**
  * @author Jorge Castillo Pérez
  */
 public interface GetPlacesAround extends Interactor {
 
-  void execute(Callback callback);
+  void execute(Callback callback, double lat, double lng);
 
   interface Callback {
 
-    void onPlacesLoaded();
+    void onPlacesLoaded(List<Place> places);
 
     void onLoadingPlacesError();
   }

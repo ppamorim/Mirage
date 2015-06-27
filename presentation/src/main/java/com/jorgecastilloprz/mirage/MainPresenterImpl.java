@@ -16,6 +16,8 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
+import com.jorgecastilloprz.mirage.model.Place;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -40,7 +42,7 @@ public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callbac
   }
 
   @Override public void initialize() {
-    getPlacesAround.execute(this);
+    getPlacesAround.execute(this, 37.992360, -1.121461);
   }
 
   @Override public void onResume() {
@@ -57,7 +59,7 @@ public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callbac
     view.exitToSignInActivity();
   }
 
-  @Override public void onPlacesLoaded() {
+  @Override public void onPlacesLoaded(List<Place> places) {
 
   }
 

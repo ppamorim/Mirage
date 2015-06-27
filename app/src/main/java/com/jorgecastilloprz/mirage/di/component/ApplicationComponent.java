@@ -20,6 +20,7 @@ import com.jorgecastilloprz.mirage.MirageApp;
 import com.jorgecastilloprz.mirage.di.modules.ApplicationModule;
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
+import com.jorgecastilloprz.mirage.log.Logger;
 import dagger.Component;
 import javax.inject.Singleton;
 
@@ -39,4 +40,6 @@ import javax.inject.Singleton;
   InteractorExecutor threadExecutor();
 
   MainThread mainThread();
+
+  Logger logger();
 }

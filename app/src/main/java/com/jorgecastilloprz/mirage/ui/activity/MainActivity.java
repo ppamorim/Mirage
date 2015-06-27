@@ -33,6 +33,7 @@ import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.di.component.DaggerMainActivityComponent;
 import com.jorgecastilloprz.mirage.di.component.MainActivityComponent;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
+import com.jorgecastilloprz.mirage.log.Logger;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.adapter.MainSectionPagerAdapter;
@@ -50,6 +51,7 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
   @InjectView(R.id.tabs) TabLayout tabLayout;
 
   @Inject MainPresenter presenter;
+  @Inject Logger logger;
 
   private MainActivityComponent component;
 
