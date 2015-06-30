@@ -16,7 +16,7 @@ public class Group_ {
     @Expose
     private Integer count;
     @Expose
-    private List<Item___> items = new ArrayList<Item___>();
+    private List<FoursquareVenuePhotoItem> items = new ArrayList<FoursquareVenuePhotoItem>();
 
     /**
      * 
@@ -77,7 +77,7 @@ public class Group_ {
      * @return
      *     The items
      */
-    public List<Item___> getItems() {
+    public List<FoursquareVenuePhotoItem> getItems() {
         return items;
     }
 
@@ -86,7 +86,7 @@ public class Group_ {
      * @param items
      *     The items
      */
-    public void setItems(List<Item___> items) {
+    public void setItems(List<FoursquareVenuePhotoItem> items) {
         this.items = items;
     }
 

@@ -12,7 +12,7 @@ public class FeaturedPhotos {
     @Expose
     private Integer count;
     @Expose
-    private List<Item____> items = new ArrayList<Item____>();
+    private List<FeaturedPhoto> items = new ArrayList<FeaturedPhoto>();
 
     /**
      * 
@@ -37,7 +37,7 @@ public class FeaturedPhotos {
      * @return
      *     The items
      */
-    public List<Item____> getItems() {
+    public List<FeaturedPhoto> getItems() {
         return items;
     }
 
@@ -46,7 +46,7 @@ public class FeaturedPhotos {
      * @param items
      *     The items
      */
-    public void setItems(List<Item____> items) {
+    public void setItems(List<FeaturedPhoto> items) {
         this.items = items;
     }
 

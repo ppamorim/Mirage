@@ -20,21 +20,21 @@ package com.jorgecastilloprz.mirage.model;
  */
 public class RatingInfo {
 
-  private int rating;
+  private double rating;
   private String ratingColor;
   private int ratingSignals;
 
-  public RatingInfo(int rating, String ratingColor, int ratingSignals) {
+  public RatingInfo(double rating, String ratingColor, int ratingSignals) {
     this.rating = rating;
     this.ratingColor = ratingColor;
     this.ratingSignals = ratingSignals;
   }
 
-  public int getRating() {
+  public double getRating() {
     return rating;
   }
 
-  public void setRating(int rating) {
+  public void setRating(double rating) {
     this.rating = rating;
   }
 

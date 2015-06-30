@@ -24,9 +24,9 @@ public interface MainPresenter {
 
   void initialize();
 
-  void onResume();
+  void resume();
 
-  void onPause();
+  void pause();
 
   void onSignOutButtonClick();
 
@@ -37,5 +37,7 @@ public interface MainPresenter {
     void storeUserLogedOutInPreferences();
 
     void exitToSignInActivity();
+
+    void displayError(String message);
   }
 }

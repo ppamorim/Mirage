@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="listItemTitle">
+    <item name="android:textSize">@dimen/listItemTitle</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:layout_marginTop">@dimen/listItemTitleMarginTop</item>
+    <item name="android:layout_marginBottom">@dimen/listItemTitleMarginBottom</item>
+    <item name="android:layout_marginLeft">@dimen/listItemTitleMarginLeft</item>
+    <item name="android:layout_marginRight">@dimen/listItemTitleMarginLeft</item>
+    <item name="android:layout_gravity">bottom</item>
+  </style>
+</resources>

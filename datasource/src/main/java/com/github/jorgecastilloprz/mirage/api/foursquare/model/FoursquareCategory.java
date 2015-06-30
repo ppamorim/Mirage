@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
 @Generated("org.jsonschema2pojo")
-public class Category {
+public class FoursquareCategory {
 
     @Expose
     private String id;

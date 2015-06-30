@@ -15,8 +15,10 @@
  */
 package com.jorgecastilloprz.mirage.di.modules;
 
+import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquarePlaceMapper;
 import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
 import com.github.jorgecastilloprz.mirage.api.foursquare.PlacesNetworkDataSourceImpl;
+import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
@@ -37,5 +39,9 @@ import retrofit.RestAdapter;
     return new RestAdapter.Builder().setEndpoint("https://api.foursquare.com/v2")
         .build()
         .create(FoursquareRetrofitService.class);
+  }
+
+  @Provides @PerActivity PlaceMapper providePlaceMapper(FoursquarePlaceMapper mapper) {
+    return mapper;
   }
 }

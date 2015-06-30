@@ -13,18 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.datasources;
-
-import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
-import com.jorgecastilloprz.mirage.datasources.exceptions.ObtainPlacesNetworkException;
-import com.jorgecastilloprz.mirage.model.Place;
-import java.util.List;
+package com.jorgecastilloprz.mirage.bus.events;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public interface PlacesNetworkDataSource {
-
-  List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
-      throws ObtainPlacesNetworkException, NetworkMapperException;
+public class OnRefreshStarted {
 }

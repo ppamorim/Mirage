@@ -55,4 +55,7 @@ dependencies {
   compile libDagger
   compile libAnnotations
   compile libRetrofit
+  compile libRecyclerView
+  compile libCardView
+  compile libPicasso
 }

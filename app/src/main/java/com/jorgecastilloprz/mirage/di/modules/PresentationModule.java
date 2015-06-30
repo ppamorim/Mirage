@@ -17,6 +17,8 @@ package com.jorgecastilloprz.mirage.di.modules;
 
 import com.jorgecastilloprz.mirage.MainPresenter;
 import com.jorgecastilloprz.mirage.MainPresenterImpl;
+import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
+import com.jorgecastilloprz.mirage.NearPlacesListPresenterImpl;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
 import dagger.Provides;
@@ -27,6 +29,11 @@ import dagger.Provides;
 @Module public class PresentationModule {
 
   @Provides @PerActivity MainPresenter provideMainPresenter(MainPresenterImpl presenter) {
+    return presenter;
+  }
+
+  @Provides @PerActivity NearPlacesListPresenter provideNearPlacesListPresenter(
+      NearPlacesListPresenterImpl presenter) {
     return presenter;
   }
 }

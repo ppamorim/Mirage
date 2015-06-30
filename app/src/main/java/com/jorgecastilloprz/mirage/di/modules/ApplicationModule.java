@@ -16,7 +16,9 @@
 package com.jorgecastilloprz.mirage.di.modules;
 
 import android.app.Application;
+import com.jorgecastilloprz.mirage.bus.EventBus;
 import com.jorgecastilloprz.mirage.domain.MainThreadImpl;
+import com.jorgecastilloprz.mirage.domain.bus.MainThreadBus;
 import com.jorgecastilloprz.mirage.executor.InteractorExecutor;
 import com.jorgecastilloprz.mirage.executor.MainThread;
 import com.jorgecastilloprz.mirage.executor.ThreadExecutor;
@@ -53,5 +55,9 @@ import javax.inject.Singleton;
 
   @Provides Logger provideLogger(LoggerImpl logger) {
     return logger;
+  }
+
+  @Provides @Singleton EventBus provideEventBus(MainThreadBus bus) {
+    return bus;
   }
 }

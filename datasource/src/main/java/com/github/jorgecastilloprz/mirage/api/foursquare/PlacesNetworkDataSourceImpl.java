@@ -16,7 +16,9 @@
 package com.github.jorgecastilloprz.mirage.api.foursquare;
 
 import com.github.jorgecastilloprz.mirage.api.foursquare.model.NearPlacesFoursquareResponse;
+import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
+import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.datasources.exceptions.ObtainPlacesNetworkException;
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
@@ -28,24 +30,30 @@ import javax.inject.Inject;
 public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
 
   private FoursquareRetrofitService service;
-  private final String CATEGORY_ID = "4d4b7105d754a06377d81259";
-  private final int RESULT_COUNT = 1000;
+  private PlaceMapper placeMapper;
+
+  private final int RESULT_COUNT = 50;
   private final int RADIUS = 100000;
   private final String API_COMPAT_DATE = "20150627";
   private final String CLIENT_ID = "E5MVMUAUJEAUAKVEUM3VVUL3EHCBWSVHK4KPJCOJSILAOML1";
   private final String CLIENT_SECRET = "3GFMAW2EDQP1WTHRUIJI3ESJINW4FB0P2N2FBWXS55HED3AG";
 
-  @Inject PlacesNetworkDataSourceImpl(FoursquareRetrofitService service) {
+  @Inject PlacesNetworkDataSourceImpl(FoursquareRetrofitService service, PlaceMapper placeMapper) {
     this.service = service;
+    this.placeMapper = placeMapper;
   }
 
   @Override public List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
-      throws ObtainPlacesNetworkException {
+      throws ObtainPlacesNetworkException, NetworkMapperException {
 
     NearPlacesFoursquareResponse response =
-        service.obtainPlacesAround(lat + "," + lng, CATEGORY_ID, RESULT_COUNT, RADIUS, 1,
-            API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET);
+        service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
+            RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any");
 
-    return null;
+    try {
+      return placeMapper.map(response);
+    } catch (Exception e) {
+      throw new NetworkMapperException();
+    }
   }
 }

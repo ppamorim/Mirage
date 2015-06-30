@@ -17,7 +17,9 @@ package com.jorgecastilloprz.mirage.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -36,6 +38,7 @@ import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
 import com.jorgecastilloprz.mirage.log.Logger;
 import com.jorgecastilloprz.mirage.ui.base.SignInActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
+import com.jorgecastilloprz.mirage.ui.fragment.NearPlacesListFragment;
 import com.jorgecastilloprz.mirage.ui.fragment.adapter.MainSectionPagerAdapter;
 import javax.inject.Inject;
 
@@ -49,6 +52,7 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
   @InjectView(R.id.viewpager) ViewPager viewPager;
   @InjectView(R.id.nav_view) NavigationView navigationView;
   @InjectView(R.id.tabs) TabLayout tabLayout;
+  @InjectView(R.id.fab) FloatingActionButton fab;
 
   @Inject MainPresenter presenter;
   @Inject Logger logger;
@@ -112,10 +116,11 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
 
   private void setupViewPager(ViewPager viewPager) {
     MainSectionPagerAdapter adapter = new MainSectionPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(new MockFragment(), "Place list");
+    adapter.addFragment(NearPlacesListFragment.newInstance(), "Place list");
     adapter.addFragment(new MockFragment(), "");
     adapter.addFragment(new MockFragment(), "Category 3");
     viewPager.setAdapter(adapter);
+    viewPager.setOffscreenPageLimit(2);
   }
 
   private void setupTabs() {
@@ -161,18 +166,22 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
 
   @Override protected void onResume() {
     super.onResume();
-    presenter.onResume();
+    presenter.resume();
   }
 
   @Override protected void onPause() {
     super.onPause();
-    presenter.onPause();
+    presenter.pause();
   }
 
   @Override public void exitToSignInActivity() {
     Intent signUpIntent = new Intent(this, MirageSignInActivity.class);
     startActivity(signUpIntent);
     finish();
+  }
+
+  @Override public void displayError(String message) {
+    Snackbar.make(fab, message, Snackbar.LENGTH_LONG).setAction("Action", null).show();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

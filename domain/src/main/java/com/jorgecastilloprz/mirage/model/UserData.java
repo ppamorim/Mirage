@@ -19,21 +19,21 @@ package com.jorgecastilloprz.mirage.model;
  * @author Jorge Castillo Pérez
  */
 public class UserData {
-  private long id;
+  private String id;
   private String name;
   private String photo;
 
-  public UserData(long id, String name, String photo) {
+  public UserData(String id, String name, String photo) {
     this.id = id;
     this.name = name;
     this.photo = photo;
   }
 
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -27,10 +27,10 @@ public class ContactInfo {
 
   public ContactInfo(String twitterId, String facebookId, String facebookUsername,
       String facebookName) {
-    this.twitterId = twitterId;
-    this.facebookId = facebookId;
-    this.facebookUsername = facebookUsername;
-    this.facebookName = facebookName;
+    this.twitterId = twitterId != null ? twitterId : "";
+    this.facebookId = facebookId != null ? facebookId : "";
+    this.facebookUsername = facebookUsername != null ? facebookUsername : "";
+    this.facebookName = facebookName != null ? facebookName : "";
   }
 
   public String getTwitterId() {

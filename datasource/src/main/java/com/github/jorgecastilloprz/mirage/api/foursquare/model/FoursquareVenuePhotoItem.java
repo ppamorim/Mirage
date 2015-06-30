@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 
 @Generated("org.jsonschema2pojo")
-public class Item____ {
+public class FoursquareVenuePhotoItem {
 
     @Expose
     private String id;
@@ -20,7 +20,7 @@ public class Item____ {
     @Expose
     private Integer height;
     @Expose
-    private User_ user;
+    private User user;
     @Expose
     private String visibility;
 
@@ -137,7 +137,7 @@ public class Item____ {
      * @return
      *     The user
      */
-    public User_ getUser() {
+    public User getUser() {
         return user;
     }
 
@@ -146,7 +146,7 @@ public class Item____ {
      * @param user
      *     The user
      */
-    public void setUser(User_ user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

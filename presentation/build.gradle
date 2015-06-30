@@ -6,4 +6,5 @@ dependencies {
   compile libAnnotations
   providedCompile libDaggerCompiler
   compile libDagger
+  compile libOtto
 }

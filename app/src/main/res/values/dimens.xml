@@ -9,4 +9,11 @@
   <dimen name="card_margin">16dp</dimen>
   <dimen name="fab_margin">16dp</dimen>
   <dimen name="toolbar_text">22sp</dimen>
+  <dimen name="itemPlaceListHeight">350dp</dimen>
+  <dimen name="itemPlaceListImageBorderWidth">5dp</dimen>
+
+  <dimen name="listItemTitle">24sp</dimen>
+  <dimen name="listItemTitleMarginTop">24dp</dimen>
+  <dimen name="listItemTitleMarginBottom">16dp</dimen>
+  <dimen name="listItemTitleMarginLeft">16dp</dimen>
 </resources>

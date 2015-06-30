@@ -27,5 +27,6 @@ public interface FoursquareRetrofitService {
       @Query("categoryId") String categoryId, @Query("limit") int limit,
       @Query("radius") int radius, @Query("venuePhotos") int venuePhotos,
       @Query("v") String apiCompatibilityDate, @Query("client_id") String clientId,
-      @Query("client_secret") String clientSecret);
+      @Query("client_secret") String clientSecret, @Query("day") String day,
+      @Query("time") String time);
 }

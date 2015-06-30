@@ -14,7 +14,7 @@ public class Group {
     @Expose
     private String name;
     @Expose
-    private List<Item_> items = new ArrayList<Item_>();
+    private List<VenueItem> items = new ArrayList<VenueItem>();
 
     /**
      * 
@@ -57,7 +57,7 @@ public class Group {
      * @return
      *     The items
      */
-    public List<Item_> getItems() {
+    public List<VenueItem> getItems() {
         return items;
     }
 
@@ -66,7 +66,7 @@ public class Group {
      * @param items
      *     The items
      */
-    public void setItems(List<Item_> items) {
+    public void setItems(List<VenueItem> items) {
         this.items = items;
     }
 

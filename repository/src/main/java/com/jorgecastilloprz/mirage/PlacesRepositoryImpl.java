@@ -16,6 +16,7 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
+import com.jorgecastilloprz.mirage.datasources.exceptions.NetworkMapperException;
 import com.jorgecastilloprz.mirage.datasources.exceptions.ObtainPlacesNetworkException;
 import com.jorgecastilloprz.mirage.interactor.exceptions.ObtainPlacesException;
 import com.jorgecastilloprz.mirage.model.Place;
@@ -39,6 +40,8 @@ public class PlacesRepositoryImpl implements PlacesRepository {
     try {
       return dataSource.obtainPlacesAround(lat, lng, limit, radius);
     } catch (ObtainPlacesNetworkException e) {
+      throw new ObtainPlacesException();
+    } catch (NetworkMapperException e) {
       throw new ObtainPlacesException();
     }
   }

@@ -33,7 +33,7 @@ public class LocationInfo {
 
   public LocationInfo(String crossStreet, double lat, double lng, int distance, String postalCode,
       String cc, String city, String state, String country, String address) {
-    this.crossStreet = crossStreet;
+    this.crossStreet = crossStreet != null ? crossStreet : "";
     this.lat = lat;
     this.lng = lng;
     this.distance = distance;

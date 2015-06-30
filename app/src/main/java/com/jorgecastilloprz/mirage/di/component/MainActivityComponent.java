@@ -16,7 +16,9 @@
 package com.jorgecastilloprz.mirage.di.component;
 
 import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
+import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
 import com.jorgecastilloprz.mirage.MainPresenter;
+import com.jorgecastilloprz.mirage.NearPlacesListPresenter;
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.di.modules.ActivityModule;
@@ -28,6 +30,7 @@ import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
 import com.jorgecastilloprz.mirage.repository.PlacesRepository;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
 import com.jorgecastilloprz.mirage.ui.fragment.MockFragment;
+import com.jorgecastilloprz.mirage.ui.fragment.NearPlacesListFragment;
 import dagger.Component;
 
 /**
@@ -40,9 +43,13 @@ import dagger.Component;
 
   void inject(MainActivity mainActivity);
 
-  void inject(MockFragment lucasGameListFragment);
+  void inject(NearPlacesListFragment nearPlacesListFragment);
+
+  void inject(MockFragment mockFragment);
 
   MainPresenter mainPresenter();
+
+  NearPlacesListPresenter nearPlacesListPresenter();
 
   GetPlacesAround getPlacesAround();
 
@@ -51,4 +58,6 @@ import dagger.Component;
   PlacesNetworkDataSource placesNetworkDataSource();
 
   FoursquareRetrofitService foursquareRetrofitService();
+
+  PlaceMapper placeMapper();
 }
