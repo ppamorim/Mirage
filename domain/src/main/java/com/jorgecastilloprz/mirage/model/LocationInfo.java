@@ -23,7 +23,7 @@ public class LocationInfo {
   private String crossStreet;
   private double lat;
   private double lng;
-  private int distance;
+  private double distance;
   private String postalCode;
   private String cc;
   private String city;
@@ -31,8 +31,8 @@ public class LocationInfo {
   private String country;
   private String address;
 
-  public LocationInfo(String crossStreet, double lat, double lng, int distance, String postalCode,
-      String cc, String city, String state, String country, String address) {
+  public LocationInfo(String crossStreet, double lat, double lng, double distance,
+      String postalCode, String cc, String city, String state, String country, String address) {
     this.crossStreet = crossStreet != null ? crossStreet : "";
     this.lat = lat;
     this.lng = lng;
@@ -69,11 +69,15 @@ public class LocationInfo {
     this.lng = lng;
   }
 
-  public int getDistance() {
+  public double getDistance() {
     return distance;
   }
 
-  public void setDistance(int distance) {
+  public String getFormattedDistance() {
+    return (distance % 1 == 0) ? distance + " m" : distance + " km";
+  }
+
+  public void setDistance(double distance) {
     this.distance = distance;
   }
 

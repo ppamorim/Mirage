@@ -72,8 +72,19 @@ public class FoursquarePlaceMapper implements PlaceMapper<NearPlacesFoursquareRe
   private LocationInfo mapLocation(Venue venue) {
     Location location = venue.getLocation();
     return new LocationInfo(location.getCrossStreet(), location.getLat(), location.getLng(),
-        location.getDistance(), location.getPostalCode(), location.getCc(), location.getCity(),
-        location.getState(), location.getCountry(), location.getAddress());
+        formatDistance(location.getDistance()), location.getPostalCode(), location.getCc(),
+        location.getCity(), location.getState(), location.getCountry(), location.getAddress());
+  }
+
+  private double formatDistance(Integer distance) {
+    double distanceInKm;
+    if (distance >= 1000) {
+      distanceInKm = (double) Math.round((distance / 1000d) * 10) / 10;
+    } else {
+      distanceInKm = distance;
+    }
+
+    return distanceInKm;
   }
 
   private List<Category> mapCategories(Venue venue) {

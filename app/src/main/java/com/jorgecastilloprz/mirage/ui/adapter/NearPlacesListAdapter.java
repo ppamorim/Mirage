@@ -59,6 +59,7 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     holder.title.setText(place.getName());
     holder.subtitle.setText(place.getLocationInfo().getCity());
     holder.userComment.setText(place.getTips().get(0).getText());
+    holder.distance.setText(place.getLocationInfo().getFormattedDistance());
   }
 
   private void loadPhoto(Place place, ImageView imageView) {
@@ -81,6 +82,7 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     public TextView title;
     public TextView subtitle;
     public TextView userComment;
+    public TextView distance;
 
     public ViewHolder(View v) {
       super(v);
@@ -89,6 +91,7 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
       title = (TextView) v.findViewById(R.id.title);
       subtitle = (TextView) v.findViewById(R.id.subtitle);
       userComment = (TextView) v.findViewById(R.id.userComment);
+      distance = (TextView) v.findViewById(R.id.distance);
     }
   }
 }
