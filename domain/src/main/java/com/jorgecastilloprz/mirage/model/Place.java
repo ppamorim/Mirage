@@ -29,9 +29,10 @@ public class Place {
   private List<Category> categories;
   private RatingInfo ratingInfo;
   private List<Photo> photos;
+  private List<UserTip> tips;
 
   public Place(String name, String infoUrl, ContactInfo contactInfo, LocationInfo locationInfo,
-      List<Category> categories, RatingInfo ratingInfo, List<Photo> photos) {
+      List<Category> categories, RatingInfo ratingInfo, List<Photo> photos, List<UserTip> tips) {
     this.name = name;
     this.infoUrl = infoUrl;
     this.contactInfo = contactInfo;
@@ -39,6 +40,7 @@ public class Place {
     this.categories = categories;
     this.ratingInfo = ratingInfo;
     this.photos = photos;
+    this.tips = tips;
   }
 
   public String getName() {
@@ -95,5 +97,13 @@ public class Place {
 
   public void setPhotos(List<Photo> photos) {
     this.photos = photos;
+  }
+
+  public List<UserTip> getTips() {
+    return tips;
+  }
+
+  public void setTips(List<UserTip> tips) {
+    this.tips = tips;
   }
 }
