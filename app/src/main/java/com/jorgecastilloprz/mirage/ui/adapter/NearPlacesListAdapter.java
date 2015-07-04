@@ -23,8 +23,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import com.jorgecastilloprz.mirage.R;
 import com.jorgecastilloprz.mirage.model.Place;
+import com.jorgecastilloprz.mirage.ui.components.picassotransform.ColorTransform;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,8 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     holder.subtitle.setText(place.getLocationInfo().getCity());
     holder.userComment.setText(place.getTips().get(0).getText());
     holder.distance.setText(place.getLocationInfo().getFormattedDistance());
+    setRatingColor(holder.ratingBgCircle, place.getRatingInfo().getRatingColor());
+    holder.ratingText.setText(place.getRatingInfo().getRating() + "");
   }
 
   private void loadPhoto(Place place, ImageView imageView) {
@@ -72,26 +78,32 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     }
   }
 
+  private void setRatingColor(ImageView bgCircle, String color) {
+    Picasso.with(context)
+        .load(R.drawable.ic_menu)
+        .transform(new ColorTransform(color))
+        .memoryPolicy(MemoryPolicy.NO_CACHE)
+        .error(android.R.color.darker_gray)
+        .into(bgCircle);
+  }
+
   @Override public int getItemCount() {
     return places.size();
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    public CardView card;
-    public ImageView image;
-    public TextView title;
-    public TextView subtitle;
-    public TextView userComment;
-    public TextView distance;
+    @InjectView(R.id.card) CardView card;
+    @InjectView(R.id.image) ImageView image;
+    @InjectView(R.id.title) TextView title;
+    @InjectView(R.id.subtitle) TextView subtitle;
+    @InjectView(R.id.userComment) TextView userComment;
+    @InjectView(R.id.distance) TextView distance;
+    @InjectView(R.id.ratingBgCircle) ImageView ratingBgCircle;
+    @InjectView(R.id.ratingText) TextView ratingText;
 
     public ViewHolder(View v) {
       super(v);
-      card = (CardView) v.findViewById(R.id.card);
-      image = (ImageView) v.findViewById(R.id.image);
-      title = (TextView) v.findViewById(R.id.title);
-      subtitle = (TextView) v.findViewById(R.id.subtitle);
-      userComment = (TextView) v.findViewById(R.id.userComment);
-      distance = (TextView) v.findViewById(R.id.distance);
+      ButterKnife.inject(this, v);
     }
   }
 }

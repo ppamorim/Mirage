@@ -42,18 +42,33 @@
             android:alpha="0.2"
             />
 
-        <TextView
+
+        <FrameLayout
             android:layout_width="@dimen/listItemRatingCircle"
             android:layout_height="@dimen/listItemRatingCircle"
             android:layout_margin="@dimen/listItemRatingMargin"
             android:layout_gravity="right"
-            android:gravity="center"
-            android:background="@drawable/green_circle"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="@dimen/listItemRatingTextSize"
-            android:text="9.1"
-            />
+            >
+
+          <ImageView
+              android:id="@+id/ratingBgCircle"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/ic_menu"
+              />
+
+          <TextView
+              android:id="@+id/ratingText"
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:gravity="center"
+              android:textColor="@color/white"
+              android:textStyle="bold"
+              android:textSize="@dimen/listItemRatingTextSize"
+              android:text="9.1"
+              />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/title"
