@@ -137,6 +137,7 @@ public class MainActivity extends SignInActivity implements MainPresenter.View {
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override public void onTabSelected(TabLayout.Tab tab) {
         tab.getIcon().mutate().setAlpha(255);
+        viewPager.setCurrentItem(tab.getPosition(), true);
       }
 
       @Override public void onTabUnselected(TabLayout.Tab tab) {
