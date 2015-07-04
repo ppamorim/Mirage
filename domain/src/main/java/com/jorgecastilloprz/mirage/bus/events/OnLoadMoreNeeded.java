@@ -13,23 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.interactor;
-
-import com.jorgecastilloprz.mirage.executor.Interactor;
-import com.jorgecastilloprz.mirage.model.Place;
-import java.util.List;
+package com.jorgecastilloprz.mirage.bus.events;
 
 /**
  * @author Jorge Castillo Pérez
  */
-public interface GetPlacesAround extends Interactor {
-
-  void execute(Callback callback, double lat, double lng, int pageToLoad);
-
-  interface Callback {
-
-    void onPlacesLoaded(List<Place> places);
-
-    void onLoadingPlacesError();
-  }
+public class OnLoadMoreNeeded {
 }

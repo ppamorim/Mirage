@@ -29,6 +29,7 @@ import com.jorgecastilloprz.mirage.model.Place;
 import com.jorgecastilloprz.mirage.ui.activity.MainActivity;
 import com.jorgecastilloprz.mirage.ui.adapter.NearPlacesListAdapter;
 import com.jorgecastilloprz.mirage.ui.base.SwipeToRefreshFragment;
+import com.jorgecastilloprz.mirage.ui.listener.EndlessRecyclerOnScrollListener;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -79,6 +80,11 @@ public class NearPlacesListFragment extends SwipeToRefreshFragment
 
     adapter = new NearPlacesListAdapter(getActivity());
     placesList.setAdapter(adapter);
+    placesList.addOnScrollListener(new EndlessRecyclerOnScrollListener(mLayoutManager) {
+      @Override public void onLoadMore(int current_page) {
+        presenter.onLoadMoreScrollPositionReached();
+      }
+    });
   }
 
   @Override public void onResume() {

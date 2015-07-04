@@ -25,6 +25,6 @@ import java.util.List;
  */
 public interface PlacesNetworkDataSource {
 
-  List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
+  List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int limit, int radius)
       throws ObtainPlacesNetworkException, NetworkMapperException;
 }

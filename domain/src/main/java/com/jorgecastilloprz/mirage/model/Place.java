@@ -99,6 +99,10 @@ public class Place {
     this.photos = photos;
   }
 
+  public boolean hasTips() {
+    return tips != null && tips.size() > 0;
+  }
+
   public List<UserTip> getTips() {
     return tips;
   }

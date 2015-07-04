@@ -16,6 +16,7 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
+import com.jorgecastilloprz.mirage.bus.events.OnLoadMoreNeeded;
 import com.jorgecastilloprz.mirage.bus.events.OnPlacesLoaded;
 import com.jorgecastilloprz.mirage.bus.events.OnRefreshStarted;
 import com.jorgecastilloprz.mirage.interactor.GetPlacesAround;
@@ -33,6 +34,7 @@ public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callbac
 
   private GetPlacesAround getPlacesAround;
   private EventBus bus;
+  private int lastLoadedPage;
 
   @Inject MainPresenterImpl(GetPlacesAround getPlacesAround, EventBus bus) {
     this.getPlacesAround = getPlacesAround;
@@ -66,7 +68,11 @@ public class MainPresenterImpl implements MainPresenter, GetPlacesAround.Callbac
   }
 
   @Subscribe public void onRefreshStartedEvent(OnRefreshStarted event) {
-    getPlacesAround.execute(this, 37.992360, -1.121461);
+    getPlacesAround.execute(this, 37.992360, -1.121461, 0);
+  }
+
+  @Subscribe public void onLoadMoreNeeded(OnLoadMoreNeeded event) {
+    getPlacesAround.execute(this, 37.992360, -1.121461, lastLoadedPage++);
   }
 
   @Override public void onPlacesLoaded(List<Place> places) {

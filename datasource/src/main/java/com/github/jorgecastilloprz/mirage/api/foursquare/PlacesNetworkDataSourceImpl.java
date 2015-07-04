@@ -43,12 +43,13 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
     this.placeMapper = placeMapper;
   }
 
-  @Override public List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
-      throws ObtainPlacesNetworkException, NetworkMapperException {
+  @Override public List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int limit,
+      int radius) throws ObtainPlacesNetworkException, NetworkMapperException {
 
     NearPlacesFoursquareResponse response =
         service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
-            RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any");
+            RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any",
+            pageToLoad * RESULT_COUNT);
 
     try {
       return placeMapper.map(response);

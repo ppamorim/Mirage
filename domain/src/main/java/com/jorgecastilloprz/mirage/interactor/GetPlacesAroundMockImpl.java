@@ -33,6 +33,7 @@ public class GetPlacesAroundMockImpl implements GetPlacesAround {
   private PlacesRepository repository;
   private double lat;
   private double lng;
+  private int pageToLoad;
   private Callback callback;
 
   @Inject GetPlacesAroundMockImpl(InteractorExecutor executor, MainThread mainThread,
@@ -42,16 +43,17 @@ public class GetPlacesAroundMockImpl implements GetPlacesAround {
     this.repository = repository;
   }
 
-  @Override public void execute(Callback callback, double lat, double lng) {
+  @Override public void execute(Callback callback, double lat, double lng, int pageToLoad) {
     this.callback = callback;
     this.lat = lat;
     this.lng = lng;
+    this.pageToLoad = pageToLoad;
     this.executor.run(this);
   }
 
   @Override public void run() {
     try {
-      List<Place> placesAround = repository.obtainPlacesAround(lat, lng, 200, 100000);
+      List<Place> placesAround = repository.obtainPlacesAround(pageToLoad, lat, lng, 200, 100000);
       notifyGamesLoaded(placesAround);
     } catch (ObtainPlacesException e) {
       notifyLoadingGamesError();

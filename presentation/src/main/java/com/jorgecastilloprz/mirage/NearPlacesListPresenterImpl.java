@@ -16,6 +16,7 @@
 package com.jorgecastilloprz.mirage;
 
 import com.jorgecastilloprz.mirage.bus.EventBus;
+import com.jorgecastilloprz.mirage.bus.events.OnLoadMoreNeeded;
 import com.jorgecastilloprz.mirage.bus.events.OnPlacesLoaded;
 import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
@@ -27,6 +28,7 @@ public class NearPlacesListPresenterImpl implements NearPlacesListPresenter {
 
   private View view;
   private EventBus bus;
+  private boolean allPlacesAlreadyLoaded = false;
 
   @Inject NearPlacesListPresenterImpl(EventBus bus) {
     this.bus = bus;
@@ -41,7 +43,6 @@ public class NearPlacesListPresenterImpl implements NearPlacesListPresenter {
   }
 
   @Override public void initialize() {
-
   }
 
   @Override public void resume() {
@@ -52,7 +53,17 @@ public class NearPlacesListPresenterImpl implements NearPlacesListPresenter {
     bus.unregister(this);
   }
 
+  @Override public void onLoadMoreScrollPositionReached() {
+    if (!allPlacesAlreadyLoaded) {
+      bus.post(new OnLoadMoreNeeded());
+    }
+  }
+
   @Subscribe public void onPlacesLoadedEvent(OnPlacesLoaded event) {
-    view.drawPlaces(event.getPlaces());
+    if (event.getPlaces().size() > 0) {
+      view.drawPlaces(event.getPlaces());
+    } else {
+      allPlacesAlreadyLoaded = true;
+    }
   }
 }

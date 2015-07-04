@@ -35,10 +35,10 @@ public class PlacesRepositoryImpl implements PlacesRepository {
     this.dataSource = dataSource;
   }
 
-  @Override public List<Place> obtainPlacesAround(double lat, double lng, int limit, int radius)
-      throws ObtainPlacesException {
+  @Override public List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int limit,
+      int radius) throws ObtainPlacesException {
     try {
-      return dataSource.obtainPlacesAround(lat, lng, limit, radius);
+      return dataSource.obtainPlacesAround(pageToLoad, lat, lng, limit, radius);
     } catch (ObtainPlacesNetworkException e) {
       throw new ObtainPlacesException();
     } catch (NetworkMapperException e) {

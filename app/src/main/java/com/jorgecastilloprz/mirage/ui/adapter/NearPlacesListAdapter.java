@@ -47,7 +47,11 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
   }
 
   public void setPlaces(List<Place> places) {
-    this.places = places;
+    if (this.places.size() > 0 && this.places.get(0).getName().equals(places.get(0).getName())) {
+      this.places = places;
+    } else {
+      this.places.addAll(places);
+    }
   }
 
   @Override
@@ -62,10 +66,16 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
     loadPhoto(place, holder.image);
     holder.title.setText(place.getName());
     holder.subtitle.setText(place.getLocationInfo().getCity());
-    holder.userComment.setText(place.getTips().get(0).getText());
+    setTip(holder.userComment, place);
+
     holder.distance.setText(place.getLocationInfo().getFormattedDistance());
-    setRatingColor(holder.ratingBgCircle, place.getRatingInfo().getRatingColor());
-    holder.ratingText.setText(place.getRatingInfo().getRating() + "");
+    setupRating(holder.ratingBgCircle, holder.ratingText, place);
+  }
+
+  private void setTip(TextView userComment, Place place) {
+    if (place.hasTips()) {
+      userComment.setText(place.getTips().get(0).getText());
+    }
   }
 
   private void loadPhoto(Place place, ImageView imageView) {
@@ -75,6 +85,18 @@ public class NearPlacesListAdapter extends RecyclerView.Adapter<NearPlacesListAd
 
     if (!photoUrl.equals("")) {
       Picasso.with(context).load(photoUrl).into(imageView);
+    }
+  }
+
+  private void setupRating(ImageView ratingBgCircle, TextView ratingText, Place place) {
+    if (place.getRatingInfo() != null) {
+      ratingBgCircle.setVisibility(View.VISIBLE);
+      ratingText.setVisibility(View.VISIBLE);
+      setRatingColor(ratingBgCircle, place.getRatingInfo().getRatingColor());
+      ratingText.setText(place.getRatingInfo().getRating() + "");
+    } else {
+      ratingBgCircle.setVisibility(View.GONE);
+      ratingText.setVisibility(View.GONE);
     }
   }
 

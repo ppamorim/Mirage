@@ -31,6 +31,8 @@ public interface NearPlacesListPresenter {
 
   void pause();
 
+  void onLoadMoreScrollPositionReached();
+
   interface View {
 
     void drawPlaces(List<Place> places);
