@@ -42,6 +42,7 @@
       android:src="@drawable/ic_remove_red_eye_white_24dp"
       app:elevation="6dp"
       app:borderWidth="0dp"
+      app:layout_behavior="com.jorgecastilloprz.mirage.ui.components.coordinatorbehaviors.ScrollAwareFABBehavior"
       />
 
 </android.support.design.widget.CoordinatorLayout>

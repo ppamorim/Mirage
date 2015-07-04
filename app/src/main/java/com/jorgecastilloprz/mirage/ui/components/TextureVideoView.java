@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.components;
+package com.jorgecastilloprz.mirage.ui.components;
 
 /**
  * @author Jorge Castillo Pérez

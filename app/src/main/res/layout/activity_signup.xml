@@ -5,7 +5,7 @@
     android:id="@+id/root"
     >
 
-  <com.jorgecastilloprz.mirage.components.TextureVideoView
+  <com.jorgecastilloprz.mirage.ui.components.TextureVideoView
       android:id="@+id/textureView"
       android:layout_height="match_parent"
       android:layout_width="match_parent"
@@ -53,7 +53,7 @@
 
   </FrameLayout>
 
-  <com.jorgecastilloprz.mirage.components.SignInButtonBox
+  <com.jorgecastilloprz.mirage.ui.components.SignInButtonBox
       android:id="@+id/signInButtonBox"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
