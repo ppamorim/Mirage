@@ -43,6 +43,11 @@ allprojects {
     libRecyclerView = 'com.android.support:recyclerview-v7:22.2.0'
     libCardView = 'com.android.support:cardview-v7:22.2.0'
     libPicasso = 'com.squareup.picasso:picasso:2.5.2'
+
+    // Testing
+    libEspresso = 'com.android.support.test.espresso:espresso-core:2.2'
+    libTestRules = 'com.android.support.test:rules:0.3'
+    libTestRunner = 'com.android.support.test:runner:0.3'
   }
 
   repositories {

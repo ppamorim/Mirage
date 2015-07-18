@@ -25,6 +25,8 @@ android {
     targetSdkVersion parent.ext.androidTargetSdkVersion
     versionCode parent.ext.androidVersionCode
     versionName parent.ext.androidVersionName
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
   buildTypes {
@@ -37,6 +39,7 @@ android {
 
   packagingOptions {
     exclude 'META-INF/services/javax.annotation.processing.Processor'
+    exclude 'LICENSE.txt'
   }
 }
 
@@ -58,4 +61,8 @@ dependencies {
   compile libRecyclerView
   compile libCardView
   compile libPicasso
+
+  androidTestCompile libEspresso
+  androidTestCompile libTestRules
+  androidTestCompile libTestRunner
 }
