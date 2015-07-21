@@ -59,7 +59,7 @@ public class SignInButtonBox extends FrameLayout {
   }
 
   public void show() {
-    ValueAnimator fadeIn = ObjectAnimator.ofFloat(this, "alpha", 1);
+    ValueAnimator fadeIn = ObjectAnimator.ofFloat(this, "alpha", 0, 1);
     ValueAnimator translateAnim =
         ObjectAnimator.ofFloat(this, "translationY", getY() + getHeight() / 2, getY());
 

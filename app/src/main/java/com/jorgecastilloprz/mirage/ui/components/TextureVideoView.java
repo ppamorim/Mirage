@@ -84,6 +84,10 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
     UNINITIALIZED, PLAY, STOP, PAUSE, END
   }
 
+  public boolean isPlaying() {
+    return mState == State.PLAY;
+  }
+
   public TextureVideoView(Context context) {
     super(context);
     initView();
@@ -395,9 +399,9 @@ public class TextureVideoView extends TextureView implements TextureView.Surface
 
   public interface MediaPlayerListener {
 
-    public void onVideoPrepared();
+    void onVideoPrepared();
 
-    public void onVideoEnd();
+    void onVideoEnd();
   }
 
   @Override
