@@ -11,26 +11,27 @@ import static android.support.test.espresso.core.deps.guava.base.Preconditions.c
 import static org.hamcrest.Matchers.is;
 
 /**
- * @author jorge
- * @since 19/07/15
+ * A custom matcher that checks the alpha property of a {@link View}. It
+ * accepts either a {@link Float} or a {@link Matcher}.
  */
-public class CustomMatcher {
+public class AlphaMatcher {
 
   public static Matcher<View> withAlpha(Float expectedAlpha) {
-    checkArgument(expectedAlpha > 0);
+    checkArgument(expectedAlpha >= 0);
     return withAlpha(is(expectedAlpha));
   }
 
-  public static Matcher<View> withAlpha(final Matcher<Float> matcherAlphaValue) {
-    checkNotNull(matcherAlphaValue);
+  public static Matcher<View> withAlpha(final Matcher<Float> floatMatcher) {
+    checkNotNull(floatMatcher);
     return new BoundedMatcher<View, SignInButtonBox>(SignInButtonBox.class) {
 
-      @Override public void describeTo(Description description) {
-        description.appendText("Alpha expected: " + matcherAlphaValue);
+      @Override protected boolean matchesSafely(SignInButtonBox view) {
+        return floatMatcher.matches(view.getAlpha());
       }
 
-      @Override protected boolean matchesSafely(SignInButtonBox signInButtonBox) {
-        return matcherAlphaValue.matches(signInButtonBox.getAlpha());
+      @Override public void describeTo(Description description) {
+        description.appendText("Alpha expected: ");
+        floatMatcher.describeTo(description);
       }
     };
   }
