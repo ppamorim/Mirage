@@ -2,7 +2,6 @@ package com.jorgecastilloprz.mirage;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 import com.jorgecastilloprz.mirage.matchers.AlphaMatcher;
@@ -13,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static junit.framework.Assert.fail;
@@ -37,7 +37,7 @@ import static junit.framework.Assert.fail;
   }
 
   @Test public void socialButtonsShouldAppearOnSignInClick() {
-    onView(withId(R.id.signButton)).perform(ViewActions.click());
+    onView(withId(R.id.signButton)).perform(click());
     onView(withId(R.id.signInButtonBox)).check(matches(AlphaMatcher.withAlpha(1f)));
   }
 }
