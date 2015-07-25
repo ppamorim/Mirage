@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.di.modules;
+package com.github.jorgecastilloprz.mirage.di;
 
 import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquarePlaceMapper;
 import com.github.jorgecastilloprz.mirage.api.foursquare.FoursquareRetrofitService;
 import com.github.jorgecastilloprz.mirage.api.foursquare.PlacesNetworkDataSourceImpl;
 import com.github.jorgecastilloprz.mirage.mapper.PlaceMapper;
 import com.jorgecastilloprz.mirage.datasources.PlacesNetworkDataSource;
+import com.jorgecastilloprz.mirage.di.annotations.Mock;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import dagger.Module;
 import dagger.Provides;

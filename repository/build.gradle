@@ -1,10 +1,29 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+      url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+  }
+
+  dependencies {
+    classpath 'com.jimdo.gradle:gradle-apt-plugin:0.2-SNAPSHOT'
+  }
+}
+
+apply plugin: 'apt'
 apply plugin: 'java'
-apply plugin: 'war'
+
+repositories {
+  mavenCentral()
+}
+
 
 dependencies {
   compile project(':domain')
-  providedCompile libDaggerCompiler
+  apt libDaggerCompiler
   compile libDagger
   compile libAnnotations
   compile libRetrofit
+  testCompile libUnitTests
 }

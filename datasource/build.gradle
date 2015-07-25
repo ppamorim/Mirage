@@ -23,4 +23,9 @@ dependencies {
   compile project(':repository')
   compile libGson
   compile libAnnotations
+  testCompile libUnitTests
+  compile libMockWebServer
+  testCompile libMockito
+  testCompile libDexMaker
+  testCompile libDexMakerMockito
 }

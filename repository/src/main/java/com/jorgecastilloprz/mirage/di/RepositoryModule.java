@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.jorgecastilloprz.mirage.di.modules;
+package com.jorgecastilloprz.mirage.di;
 
 import com.jorgecastilloprz.mirage.PlacesRepositoryImpl;
+import com.jorgecastilloprz.mirage.di.annotations.Mock;
 import com.jorgecastilloprz.mirage.di.annotations.PerActivity;
 import com.jorgecastilloprz.mirage.repository.PlacesRepository;
 import dagger.Module;

@@ -23,6 +23,7 @@ import com.jorgecastilloprz.mirage.datasources.exceptions.ObtainPlacesNetworkExc
 import com.jorgecastilloprz.mirage.model.Place;
 import java.util.List;
 import javax.inject.Inject;
+import retrofit.RetrofitError;
 
 /**
  * @author Jorge Castillo Pérez
@@ -46,10 +47,15 @@ public class PlacesNetworkDataSourceImpl implements PlacesNetworkDataSource {
   @Override public List<Place> obtainPlacesAround(int pageToLoad, double lat, double lng, int limit,
       int radius) throws ObtainPlacesNetworkException, NetworkMapperException {
 
-    NearPlacesFoursquareResponse response =
-        service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
-            RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any",
-            pageToLoad * RESULT_COUNT);
+    NearPlacesFoursquareResponse response;
+    try {
+      response =
+          service.obtainPlacesAround(lat + "," + lng, CategoryUtils.getCategories(), RESULT_COUNT,
+              RADIUS, 1, API_COMPAT_DATE, CLIENT_ID, CLIENT_SECRET, "any", "any",
+              pageToLoad * RESULT_COUNT);
+    } catch (RetrofitError error) {
+      throw new ObtainPlacesNetworkException();
+    }
 
     try {
       return placeMapper.map(response);
