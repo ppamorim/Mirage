@@ -74,7 +74,7 @@ public class LocationInfo {
   }
 
   public String getFormattedDistance() {
-    return (distance % 1 == 0) ? distance + " m" : distance + " km";
+    return (distance % 1 == 0) ? (int) distance + " m" : distance + " km";
   }
 
   public void setDistance(double distance) {

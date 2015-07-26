@@ -5,4 +5,7 @@ dependencies {
   compile libAnnotations
   providedCompile libDaggerCompiler
   compile libDagger
+
+  testCompile libUnitTests
+  testCompile libMockito
 }
