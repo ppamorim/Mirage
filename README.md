@@ -1,7 +1,8 @@
 Mirage
 ======
-Social Network to discover moments around you. Currently using this project to architecture and
-testing self learning. Here are some examples about it's beautiful UX :_)
+Social Network to discover moments around you. Project totally unfinished! Currently using this
+project to architecture and testing experiments. Here are some examples about it's beautiful UX!
+
 ![Screenshot 1](/raw/screen1.png)
 ![Screenshot 2](/raw/screen2.png)
 ![Screenshot 3](/raw/screen3.png)
